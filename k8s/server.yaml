@@ -1,0 +1,26 @@
+# https://kubernetes.io/docs/concepts/services-networking/ingress/#the-ingress-resource
+
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: ingress
+  namespace: default
+spec:
+  rules:
+    - host: post.com
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: post-svc
+                port:
+                  number: 3000
+          - path: /createPost
+            pathType: Prefix
+            backend:
+              service:
+                name: post-svc
+                port:
+                  number: 3000
