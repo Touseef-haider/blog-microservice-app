@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: post-depl
+  labels:
+    app: post
+spec:
+  selector:
+    matchLabels:
+      app: post
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: post
+    spec:
+      containers:
+        - name: post
+          image: touseefhaider/post
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: post-svc
+spec:
+  selector:
+    app: post
+  ports:
+    - name: post
+      port: 3000
+      targetPort: 3000
