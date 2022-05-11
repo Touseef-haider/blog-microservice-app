@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: comment-depl
+  labels:
+    app: comment
+spec:
+  selector:
+    matchLabels:
+      app: comment
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: comment
+    spec:
+      containers:
+        - name: comment
+          image: touseefhaider/comment
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: comment-svc
+spec:
+  selector:
+    app: comment
+  ports:
+    - name: comment
+      port: 5000
+      targetPort: 5000

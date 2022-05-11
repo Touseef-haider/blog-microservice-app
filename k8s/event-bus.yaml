@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: event-bus-depl
+  labels:
+    app: event-bus
+spec:
+  selector:
+    matchLabels:
+      app: event-bus
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: event-bus
+    spec:
+      containers:
+        - name: event-bus
+          image: touseefhaider/event-bus
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: event-bus-svc
+spec:
+  selector:
+    app: event-bus
+  ports:
+    - name: event-bus
+      port: 4000
+      targetPort: 4000
